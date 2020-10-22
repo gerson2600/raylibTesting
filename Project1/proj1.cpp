@@ -25,6 +25,8 @@ int main(int argc, char const *argv[])
     Rectangle RecP1 = {(float)screenWidth/10, (float)((screenHeight/2)-(PlayerRecSize.y/2)) ,PlayerRecSize.x,PlayerRecSize.y};
     
     Vector2 PlayerRecPos = { (float)screenWidth/10, (float)((screenHeight/2)-(PlayerRecSize.y/2)) };
+    Vector2 PlayerRecPos2 = PlayerRecPos;
+    PlayerRecPos2.x = PlayerRecPos.x+600;
     
 
 
@@ -60,6 +62,14 @@ int main(int argc, char const *argv[])
         		ballSpeed.x *= -1.0f;
        		}
 		}
+
+        if (ballPosition.x + ballRadius >= (PlayerRecPos2.x))
+        {
+            if ( (ballPosition.y >= PlayerRecPos2.y) && (ballPosition.y <= PlayerRecPos2.y+PlayerRecSize.y))
+            {
+                ballSpeed.x *= -1.0f;
+            }
+        }
         
 
 
@@ -74,6 +84,10 @@ int main(int argc, char const *argv[])
 		RecP1.width=PlayerRecSize.y;
 		RecP1.height=PlayerRecSize.x;
 
+        
+        PlayerRecPos2.y = PlayerRecPos.y;
+
+
     	BeginDrawing();
             ClearBackground(RAYWHITE);
             DrawText("move the box up and down with arrow keys", 10, 380, 20, DARKGRAY);
@@ -82,6 +96,7 @@ int main(int argc, char const *argv[])
            
             DrawCircleV(ballPosition, ballRadius, MAROON);
             DrawRectangleV(PlayerRecPos, PlayerRecSize, MAROON);
+            DrawRectangleV(PlayerRecPos2, PlayerRecSize, MAROON);
         EndDrawing();
 
         //
