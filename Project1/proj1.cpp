@@ -16,13 +16,17 @@ int main(int argc, char const *argv[])
     int screenHeight = 400;
 
     InitWindow(screenWidth, screenHeight, "Project1 - Testing");
-    SetTargetFPS(24);
+    SetTargetFPS(30);
+    float initballSpeedx = 5.0f;
+    float initballSpeedy = 5.0f;
 
     Vector2 ballPosition = { (float)screenWidth/2, (float)screenHeight/2 };
-    Vector2 ballSpeed = {-5.0f, -5.0f};
+    Vector2 ballSpeed = {-initballSpeedx, -initballSpeedy};
     int ballRadius = 10;
+
+
     Vector2 PlayerRecSize = { 40, 250 };
-    Rectangle RecP1 = {(float)screenWidth/10, (float)((screenHeight/2)-(PlayerRecSize.y/2)) ,PlayerRecSize.x,PlayerRecSize.y};
+    
     
     Vector2 PlayerRecPos = { (float)screenWidth/10, (float)((screenHeight/2)-(PlayerRecSize.y/2)) };
     Vector2 PlayerRecPos2 = PlayerRecPos;
@@ -55,19 +59,50 @@ int main(int argc, char const *argv[])
 			ballSpeed.y *= -1.0f;
 		}
 
-		if (ballPosition.x + ballRadius <= (PlayerRecPos.x+PlayerRecSize.x+2*ballRadius))
+
+        //Left Player collision
+        //
+        
+		if (ballPosition.x + ballRadius == (PlayerRecPos.x+PlayerRecSize.x+2*ballRadius))
 		{
-			if ( (ballPosition.y >= PlayerRecPos.y) && (ballPosition.y <= PlayerRecPos.y+PlayerRecSize.y))
+			if ( ((ballPosition.y >= PlayerRecPos.y) && (ballPosition.y <= PlayerRecPos.y+PlayerRecSize.y))&&ballSpeed.x <0)
         	{
         		ballSpeed.x *= -1.0f;
+                if (IsKeyDown(KEY_UP))
+                {
+                    ballSpeed.y += -5.0f;
+                }else if (IsKeyDown(KEY_DOWN))
+                {
+                    ballSpeed.y += 5.0f;
+                }
        		}
 		}
 
-        if (ballPosition.x + ballRadius >= (PlayerRecPos2.x))
+        //top/bottom of paddle collision detection
+        if ((ballPosition.x <= (PlayerRecPos.x+PlayerRecSize.x+2*ballRadius)) && ballPosition.x >= PlayerRecPos.x) 
         {
-            if ( (ballPosition.y >= PlayerRecPos2.y) && (ballPosition.y <= PlayerRecPos2.y+PlayerRecSize.y))
+            if ( ((ballPosition.y + ballRadius > PlayerRecPos.y) && ballSpeed.y > 0) || ((ballPosition.y - ballRadius < PlayerRecPos.y+PlayerRecSize.y))&& ballSpeed.y < 0)
+            {
+                ballSpeed.y *= -1.0f;
+            }
+        }
+
+
+
+
+        //Right Player Collision
+        if (ballPosition.x + ballRadius == (PlayerRecPos2.x))
+        {
+            if ( ((ballPosition.y >= PlayerRecPos2.y) && (ballPosition.y <= PlayerRecPos2.y+PlayerRecSize.y))&&ballSpeed.x >0)
             {
                 ballSpeed.x *= -1.0f;
+                if (IsKeyDown(KEY_UP))
+                {
+                    ballSpeed.y += -5.0f;
+                }else if (IsKeyDown(KEY_DOWN))
+                {
+                    ballSpeed.y += 5.0f;
+                }
             }
         }
         
@@ -79,10 +114,7 @@ int main(int argc, char const *argv[])
     
                                                     
         
-		RecP1.x= PlayerRecPos.x;
-		RecP1.y=PlayerRecPos.y;
-		RecP1.width=PlayerRecSize.y;
-		RecP1.height=PlayerRecSize.x;
+
 
         
         PlayerRecPos2.y = PlayerRecPos.y;
