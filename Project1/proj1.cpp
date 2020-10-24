@@ -1,3 +1,4 @@
+
 //The aim is to create a Pong like game using raylib
 //
 // Functions to learn
