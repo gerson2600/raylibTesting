@@ -3,24 +3,31 @@
 //func.h - #include "raylib.h"
 #include "bin/func.h"
 
+
 int main(int argc, char const *argv[])
 {
-	int screenWidth = 800;
-    int screenHeight = 400;
+	//raylib.h- screenWidth = 800 // screenHeight = 400;
 
     InitWindow(screenWidth, screenHeight, "Project1 - Testing");
-    SetTargetFPS(30);
+    SetTargetFPS(60);
 
     //Rectangle struct x,y,width,height
-    Rectangle Rec;
-    Rec = {0,1, (float)screenWidth, (float)screenHeight};
+    Vector2 MousePoint = {0,0};
+    MousePoint = GetMousePosition();
     
 
 
     while (!WindowShouldClose())
     {
+        MousePoint = GetMousePosition();
         BeginDrawing();
-        DrawRectangleLinesEx(Rec, 10, BLACK);
+            PlayingFieldBoxesCheck(MousePoint);
+            DrawPlayingField();
+
+
+            DrawFPS(screenWidth-100, screenHeight-50);
+            
+            
 
 
         EndDrawing();
