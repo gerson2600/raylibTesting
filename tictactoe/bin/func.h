@@ -118,18 +118,6 @@ void DrawPlayingField()
 
 }
 
-int WinnerID(int check)
-{
-    if (check == 2)
-    {
-        return 2;
-    }else if (check == 3)
-    {
-        return 3;
-    }
-    return 1;
-}
-
 int WinningCheck(int VP[9])
 {
     //check for grouping of equal values
@@ -147,16 +135,16 @@ int WinningCheck(int VP[9])
     //3-player2 win
     //4=Draw
 
-    if      (VP[0]!=0 &&  (VP[0]==VP[1] && VP[1]==VP[2]) ) {check = WinnerID(VP[0]);}
-    else if (VP[3]!=0 &&  (VP[3]==VP[4] && VP[4]==VP[5]) ) {check = WinnerID(VP[3]);}
-    else if (VP[6]!=0 &&  (VP[6]==VP[7] && VP[7]==VP[8]) ) {check = WinnerID(VP[6]);}
+    if      (VP[0]!=0 &&  (VP[0]==VP[1] && VP[1]==VP[2]) ) {check = VP[0];}
+    else if (VP[3]!=0 &&  (VP[3]==VP[4] && VP[4]==VP[5]) ) {check = VP[3];}
+    else if (VP[6]!=0 &&  (VP[6]==VP[7] && VP[7]==VP[8]) ) {check = VP[6];}
 
-    else if (VP[0]!=0 &&  (VP[0]==VP[3] && VP[3]==VP[6]) ) {check = WinnerID(VP[0]);}
-    else if (VP[1]!=0 &&  (VP[1]==VP[4] && VP[4]==VP[7]) ) {check = WinnerID(VP[1]);}
-    else if (VP[2]!=0 &&  (VP[2]==VP[5] && VP[5]==VP[8]) ) {check = WinnerID(VP[2]);}
+    else if (VP[0]!=0 &&  (VP[0]==VP[3] && VP[3]==VP[6]) ) {check = VP[0];}
+    else if (VP[1]!=0 &&  (VP[1]==VP[4] && VP[4]==VP[7]) ) {check = VP[1];}
+    else if (VP[2]!=0 &&  (VP[2]==VP[5] && VP[5]==VP[8]) ) {check = VP[2];}
 
-    else if (VP[0]!=0 &&  (VP[0]==VP[4] && VP[4]==VP[8]) ) {check = WinnerID(VP[0]);}
-    else if (VP[2]!=0 &&  (VP[2]==VP[4] && VP[4]==VP[6]) ) {check = WinnerID(VP[2]);}
+    else if (VP[0]!=0 &&  (VP[0]==VP[4] && VP[4]==VP[8]) ) {check = VP[0];}
+    else if (VP[2]!=0 &&  (VP[2]==VP[4] && VP[4]==VP[6]) ) {check = VP[2];}
     for (int i = 0; i < 9; i++)
     {
         if (VP[i]==0)
